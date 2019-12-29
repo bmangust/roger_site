@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+		<title>Hit the Target</title>
+		<link rel="stylesheet" href="game_style.css">
+		<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+    </head>
+    <body>
+		<container class="wrapper">
+			<div class="info">
+				<div class="difficulty-wrapper">
+					<div id="difficulty-header">difficulty</div>
+					<div id="difficulty"></div>
+				</div>
+				<div class="score-wrapper">
+					<div id="score-header">score</div>
+					<div id="score"></div>
+				</div>
+			</div>
+			<div class="field-wrapper">
+				<div class="field">
+					<div class="trgt 00" id="gray"></div>
+					<div class="trgt 01" id="gray"></div>
+					<div class="trgt 02" id="gray"></div>
+					<div class="trgt 03" id="gray"></div>
+					<div class="trgt 04" id="gray"></div>
+					<div class="trgt 05" id="gray"></div>
+					<div class="trgt 06" id="gray"></div>
+					<div class="trgt 07" id="gray"></div>
+					<div class="trgt 08" id="gray"></div>
+				</div>
+			</div>
+			<div class="controls">
+				<div class="reset-wrapper">
+					<button id="home">home</button>
+					<button id="reset">reset</button>
+				</div>
+				<div class="slider-wrapper">
+					<span class="difficulty-header">difficulty</span>
+					<div class="slidecontainer">
+						<input type="range" min="0" max="2000" value="1000" step="100" class="slider" id="myRange">
+					</div>
+				</div>
+			</div>
+		</container>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="game_script.js"></script>
+    </body>
+</html>

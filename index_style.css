@@ -1,0 +1,119 @@
+body {
+    /*text-align:center;*/
+	background-color: #1a202c;
+    color: rgb(143, 143, 143);
+    margin: 0;
+    padding: 0;
+    font-family: 'Quicksand', sans-serif;
+    text-transform: uppercase;
+}
+
+.overflowHidden {
+    overflow: hidden;
+}
+
+canvas {
+    z-index: -10;
+}
+
+.mainPage {
+    text-align: center;
+}
+
+.menu {
+    z-index: 10;
+    position: absolute;
+    top: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
+h1 {
+    color: #fafafa;
+    font-size: 3rem;
+}
+
+h2 {
+    color: #fafafa;
+    font-size: 2rem;
+}
+
+ul {
+    list-style: none;
+    padding-bottom: 0.3rem;
+}
+
+li {
+    padding: 0;
+}
+
+a {
+    font-size: 2rem;
+    color: #dadada;
+    text-decoration: none;
+    transition-duration: 0.5s;
+    color: rgb(196, 196, 196);
+}
+
+a:hover {
+    color: rgb(80,160,253);
+}
+
+
+main {
+    overflow: visible;
+} 
+
+
+.main-section {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+}
+
+.navbar>li {
+    display: inline;
+}
+
+.nav {
+    font-size: 1rem;
+}
+
+.text {
+
+    text-transform: none;
+    font-size: 0.9rem;
+}
+
+code>p {
+    font-size: 0.6rem;
+    font-family: 'Courier New', Monospace;
+    color: rgba(176,190,197 ,1);
+    background-color: rgba(69,90,100 ,1);
+    padding: 0.5rem;
+    border: 1px solid rgba(176,190,197 ,1);
+    text-transform: none;
+}
+
+.tabbed {
+    padding-left: 1rem;
+}
+
+.tabbed-2 {
+    padding-left: 2rem;
+}
+
+.terminal {
+    background-color: rgb(121, 104, 89);
+}
+
+.terminal-mac {
+    background-color: rgb(76, 85, 67);
+}

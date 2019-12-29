@@ -1,0 +1,145 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #212121;
+    font-size: 100%;
+    font-family: 'Quicksand', sans-serif;
+    text-transform: uppercase;
+}
+
+
+.wrapper {
+	width: 80vw;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+}
+
+.field {
+    margin: 5px auto;
+    width: 30rem;
+    height: 30rem;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 0.7vw;
+}
+
+.info, .controls {
+    padding: 0;
+    margin: 0;
+	display: flex;
+}
+
+.controls {
+    margin: 1rem 0;
+	justify-content: space-around;
+	align-content: center;
+	/* height: 2rem; */
+}
+
+.reset-wrapper {
+	display: flex;
+	justify-content: center;
+	align-content: center;
+}
+
+.info {
+    grid-template-columns: 1fr;
+	flex-direction: column;
+}
+
+.score-wrapper, .difficulty-wrapper, .slider-wrapper  {
+	margin: 0.5rem;
+    padding: 0.5rem 2rem;
+    font-size: 2rem;
+    color: white;
+    text-align: center;
+    border-radius: 1em;
+    border: 2px solid rgb(80,160,253);
+}
+
+
+.score-wrapper, .difficulty-wrapper {
+	display: flex;
+	justify-content: space-around;
+}
+
+.reset-wrapper {
+    border: none;
+}
+
+.slider-wrapper {
+	margin: 0;
+	padding: 1.5rem 2rem;
+	width: 20rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+#score-header, #difficulty-header {
+    text-align: center;
+    padding: 1vw;
+}
+
+#score, #difficulty {
+    text-align: center;
+    padding: 1vw;
+}
+
+
+button {
+	
+    padding: 2rem 5rem;
+    margin: 0 1rem;
+    border-radius: 1em;
+    border: 2px solid rgb(80,160,253);
+    background-color: #212121;
+    font-size: 2rem;
+    text-transform: uppercase;
+    color: white;
+    transition-duration: 0.5s;
+    -webkit-transition-duration: 0.5s;
+}
+
+button:hover {
+    color: black;
+    background-color: rgb(80,160,253);
+}
+
+button:active {
+    background-color: #fafafa;
+    border-color: #fafafa;
+}
+
+
+.slider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 90%; /* Full-width */
+  height: 20px; /* Specified height */
+  background: #636363; /* Grey background */
+  outline: none; /* Remove outline */
+  border-radius: 10px;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  border-radius: 50%;
+  background: rgb(80,160,253); 
+  cursor: pointer; /* Cursor on hover */
+}
+
+.trgt {
+    font-size: 20px;
+    background-color: #636363;
+    border-radius: 1em;
+}
+
+.active {
+    background-color: rgb(80,160,253);
+}

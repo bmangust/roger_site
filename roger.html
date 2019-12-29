@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+	<link rel="stylesheet" href="index_style.css">
+    <meta charset="UTF-8"/> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+    <title>Roger Info</title> 
+</head> 
+<body>
+<header id="header">
+	<nav>
+		<ul id="navbar">
+			<li>
+				<a class="nav" href="index.html">Home</a>
+			</li>
+			<li>
+				<a class="nav" href="game.html">Game</a>
+			</li>
+			<li>
+				<a class="nav" href="https://profile.intra.42.fr/users/akraig">Profile</a>
+			</li>
+		</ul>
+	</nav>
+</header>
+<main id="main-doc">
+	<section class="main-section" id="Main_Header">
+		<h2>Info About Roger</h2>
+	</section>
+	<section class="main-section">
+		<h3>Install debian</h3>
+		<div class="text">
+			<ul>
+				<li>
+					Install virtual debian
+					<ul>
+						<li>
+							Partition disks to make /home partition 4.2Gb 
+						</li>
+						<li>
+							Add user max | 123
+						</li>
+					</ul>
+				</li>
+				<li>
+					Add user max to sudoers:
+					<ul>
+						<li>
+							<code>
+								<p class="terminal">
+									su
+									<br>
+									sudo usermod -aG sudo max
+								</p>
+							</code>
+						</li>
+						<li>
+							Ctrl+D to exit root
+						</li>
+					</ul>
+				</li>
+				<li>
+					Check updates:
+				</li>
+				<ul>
+					<li>
+						<code>
+							<p class="terminal">
+								sudo apt update
+							</p>
+						</code>
+					</li>
+				</ul>
+			</ul>
+		</div>
+		<h3>Configure network</h3>
+		<div class="text">
+			<ul>
+				<li>
+					Add new card in VBox settings
+					<ul>
+						<li>
+							tools->network, add card
+						</li>
+						<li>
+							address: 192.168.56.1/30
+						</li>
+						<li>
+							dhcp: no
+						</li>
+					</ul>
+				</li>
+				<li>
+					Edit file: 
+					<ul>
+						<li>
+							<code>
+								<p class="terminal">
+									sudo vim /etc/network/interfaces
+								</p>
+							</code>
+						</li>
+						<li>
+							Enter this settings:
+						</li>
+						<li>
+							<code>
+								<p>
+								allow-hotplug enp0s3<br>
+								iface enp0s3 inet dhcp<br>
+								<br>
+								allow-hotplug enp0s8<br>
+								iface enp0s8 inet static<br>
+								<span class="tabbed">
+								address 192.168.56.2<br></span>
+								<span class="tabbed">
+								netmask 255.255.255.252<br></span>
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Check file resolv.conf
+					<ul>
+						<li>
+							<code>
+								<p class="terminal">
+									sudo vim /etc/resolv.conf
+								</p>
+							</code>
+						</li>
+						<li>
+							add nameservers
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<h3>Configure ssh</h3>
+		<div class="text">
+			<ul>
+				<li>
+					Generate key on a Mac
+					<ul>
+						<li>
+							<code>
+								<p class="terminal-mac">
+									ssh-keygen -t rsa
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Add "/Users/akraig/.ssh/config" file: 
+					<ul>
+						<li>
+							<code>
+								<p>
+								Host vmloc<br>
+								<span class="tabbed">
+								Hostname 127.0.0.1<br></span>
+								<span class="tabbed">
+								Port 2222<br></span>
+								<span class="tabbed">
+								User max<br></span>
+								<span class="tabbed">
+								ForwardX11 yes<br></span>
+								<span class="tabbed">
+								IdentityFile ~/.ssh/id_rsa<br></span>
+								</p>
+							</code>
+						</li>
+						<li>
+							<code>
+								<p>
+								Host vm<br>
+								<span class="tabbed">
+								Hostname 192.168.56.2<br></span>
+								<span class="tabbed">
+								Port 2222<br></span>
+								<span class="tabbed">
+								User max<br></span>
+								<span class="tabbed">
+								ForwardX11 yes<br></span>
+								<span class="tabbed">
+								IdentityFile ~/.ssh/id_rsa<br></span>
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Write key to server
+					<ul>
+						<li>
+							<code>
+								<p class="terminal-mac">
+									ssh-copy-id max@127.0.0.1 -p 2222
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Connect
+					<ul>
+						<li>
+							<code>
+								<p class="terminal-mac">
+									ssh vmloc
+								</p>
+							</code>
+							or<br>
+							<code>
+								<p class="terminal-mac">
+									ssh vm
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Deny password connection on Debian:
+					<ul>
+						<li>
+							edit /etc/ssh/sshd_config<br>
+							<code>
+								<p>
+									Port 2222<br>
+									ListenAddress 10.0.2.1<br>
+									ListenAddress 192.168.56.2<br>
+									PermitRootLogin no<br>
+									PasswordAuthentification no
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Check active connections and ports:
+					<ul>
+						<li>
+							<code>
+								<p class="terminal">
+									sudo lsof -i -P -n
+								</p>
+							</code>
+							or<br>
+							<code>
+								<p class="terminal">
+									ss -natu
+								</p>
+							</code>
+							or<br>
+							<code>
+								<p class="terminal">
+									netstat -tulpan
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<h3>Configure firewall</h3>
+		<div class="text">
+			<ul>
+				<li>
+					Install UFW
+					<ul>
+						<li>
+							<code>
+								<p class="terminal">
+									sudo apt install ufw
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Activate: 
+					<ul>
+						<li>
+							<code>
+								<p class="terminal">
+								sudo ufw deny 22/tcp<br>
+								sudo ufw enable<br>
+								sudo ufw allow 2222/tcp<br>
+								sudo ufw allow 80/tcp<br>
+								sudo ufw allow 443/tcp<br>
+								sudo ufw reload<br>
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Check status: 
+					<ul>
+						<li>
+							<code>
+								<p class="terminal">
+								sudo ufw status verbose
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Check all services:
+					<ul>
+						<li>
+							<code>
+								<p class="terminal">
+									sudo service --status-all
+								</p>
+							</code>
+							or<br>
+							<code>
+								<p class="terminal">
+									systemctl --full --type service
+								</p>
+							</code>
+							or<br>
+							<code>
+								<p class="terminal">
+									systemctl 
+								</p>
+							</code>
+							and shut down some of them
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<h3>Configure nginnx, portSentry and fail2ban</h3>
+		<div class="text">
+			<ul>
+				<li>
+					Install nginnx
+					<ul>
+						<li>
+							<code>
+								<p class="terminal">
+									sudo apt install nginx -y
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Edit sudo vim /etc/nginx/nginx.conf: 
+					<ul>
+						<li>
+							<code>
+								<p>
+								worker_connections 20000
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Install fail2ban: 
+					<ul>
+						<li>
+							<code>
+								<p>
+								sudo apt install fail2ban -y<br>
+								sudo service fail2ban stop
+								</p>
+							</code>
+						</li>
+						<li>
+							Create a new file "/etc/fail2ban/jail.local" and add to it:
+						</li>
+						<li>
+							<code>
+								<p>
+					[nginx-dos]<br>
+					# Any IP requesting more than 40 pages in 10 <br>seconds, # or 4 p/s average, is suspicious. Block it for two full days.<br>
+					enabled = true<br>
+					port = http<br>
+					filter = nginx-dos<br>
+					logpath = /var/log/nginx/access.log<br>
+					findtime = 10<br>
+					bantime = 172800<br>
+					maxretry = 40
+								</p>
+							</code>
+						</li>
+						<li>
+							then add rule "/etc/fail2ban/filter.d/nginx-dos.conf":
+						</li>
+						<li>
+							<code>
+								<p>
+							[Definition]<br>
+							failregex = ^&ltHOST&gt -.*"(GET|POST).*HTTP.*"$<br>
+							ignoreregex =
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Install portSentry: 
+					<ul>
+						<li>
+							<code>
+								<p class="terminal">
+								sudo apt install portsentry -y
+								</p>
+							</code>
+						</li>
+						<li>
+							Change /etc/default/portsentry:
+						</li>
+						<li>
+							<code>
+								<p>
+									TCP_MODE="atcp"<br>
+									UDP_MODE="audp"
+								</p>
+							</code>
+						</li>
+						<li>
+							and  /etc/portsentry/portsentry.conf:
+						</li>
+						<li>
+							<code>
+								<p>
+									BLOCK_UDP="1"<br>
+									BLOCK_TCP="1"
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Check: 
+					<ul>
+						<li>
+							on Mac run:
+							<code>
+								<p class="terminal-mac">
+									cd /Users/akraig/Downloads<br>
+									perl slowloris.pl -dns 192.168.56.2:2222
+								</p>
+							</code>
+						</li>
+						<li>
+							See the list of the IP addresses that are banned:
+						</li>
+						<li>
+							<code>
+								<p class="terminal">
+									sudo fail2ban-client status nginx-dos
+								</p>
+							</code>
+						</li>
+						<li>
+							unban IP addresses:
+						</li>
+						<li>
+							<code>
+								<p class="terminal">
+									sudo fail2ban-client set nginx-dos unbanip 192.168.56.1
+								</p>
+							</code>
+						</li>
+						<li>
+							Try to scan ports:
+						</li>
+						<li>
+							<code>
+								<p class="terminal-mac">
+									nmap 127.0.0.1 -Pn
+								</p>
+							</code>
+						</li>
+						<li>
+							<p>
+								first time it scans, then failes.<br>
+								To unban clear all files:<br>
+								/var/lib/portsentry<br>
+								/etc/hosts.deny
+							</p>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<h3>Configure cron</h3>
+		<div class="text">
+			<ul>
+				<li>
+					Rules for cron are here:
+					<ul>
+						<li>
+							<code>
+								<p class="terminal">
+									sudo vim /etc/crontab
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Script to make updates and log:
+					<ul>
+						<li>
+							<code>
+								<p class="terminal">
+									sudo vim /etc/cron.d/update_packages.sh
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Install mail: 
+					<ul>
+						<li>
+							<code>
+								<p class="terminal">
+									sudo apt install mailutils -y
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Script to monitor cron settings: 
+					<ul>
+						<li>
+							<code>
+								<p class="terminal">
+								sudo vim /etc/cron.d/monitor_changes.sh
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Place where logs are:
+				</li>
+					<ul>
+						<li>
+							<code>
+								<p class="terminal">
+								sudo vim /var/log/update_script.log
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Mail is sent here:
+					<ul>
+						<li>
+							<code>
+								<p class="terminal">
+								sudo vim /var/mail/max
+								</p>
+							</code>
+							or alias:
+							<code>
+								<p class="terminal">
+								seemail
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<h3>Configure SSL keys</h3>
+		<div class="text">
+			<ul>
+				<li>
+					Create ssl keys:
+					<ul>
+						<li>
+							<code>
+								<p class="terminal">
+									sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt<br>
+									sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+								</p>
+							</code>
+						</li>
+						<li>
+							The last one takes some time<br>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Configure nginx:
+					<ul>
+						<li>
+							<code>
+								<p class="terminal">
+									sudo vim /etc/nginx/snippets/self-signed.conf
+								</p>
+							</code>
+						</li>
+						<li>
+							<code>
+								<p>
+									ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;<br>
+									ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+								</p>
+							</code>
+						</li>
+					<li>
+						Create new config: 
+					</li>
+					<li>
+						<code>
+							<p class="terminal">
+								sudo vim /etc/nginx/sites-available/mx_conf
+							</p>
+						</code>
+					</li>
+						<li>
+							<code>
+								<p>
+									server {<br>
+										<span class="tabbed">
+										listen 80 default_server;<br></span>
+										<span class="tabbed">
+										listen [::]:80 default_server;<br></span>
+										<br>
+										<span class="tabbed">
+										server_name 192.168.56.2;<br></span>
+										<span class="tabbed">
+										return 302 https://$server_name$request_uri;<br></span>
+									}<br>
+									<br>
+										server {<br>
+										<span class="tabbed">
+										# SSL configuration<br></span>
+										<span class="tabbed">
+										listen 443 ssl http2 default_server;<br></span>
+										<span class="tabbed">
+										listen [::]:443 ssl http2 default_server;<br></span>
+										<span class="tabbed">
+										include snippets/self-signed.conf;<br></span>
+										<span class="tabbed">
+										include snippets/ssl-params.conf;<br></span>
+										<br>
+										<span class="tabbed">
+										root /var/www/html;<br></span>
+										<span class="tabbed">
+										index index.html index.htm;<br></span>
+										<br>
+										<span class="tabbed">
+										location / {<br></span>
+										<span class="tabbed-2">
+										try_files $uri $uri/ =404;<br></span>
+										<span class="tabbed">
+										}<br></span>
+									}
+								</p>
+							</code>
+						</li>
+						<li>
+							Make link
+						</li>
+						<li>
+							<code>
+								<p class="terminal">
+								sudo ln -s /etc/nginx/sites-available/mx_conf /etc/nginx/sites-enabled/mx_conf
+								</p>
+							</code>
+						</li>
+						<li>
+							Remove default profile:
+						</li>
+						<li>
+							<code>
+								<p class="terminal">
+								sudo rm /etc/nginx/sites-enabled/default
+								</p>
+							</code>
+						</li>
+						<li>
+							Restart server:
+						</li>
+						<li>
+							<code>
+								<p class="terminal">
+									sudo systemctl restart nginx<br>
+									sudo systemctl status nginx
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<h3>Configure deploy</h3>
+		<div class="text">
+			<ul>
+				<li>
+					Install git on vm:
+					<ul>
+						<li>
+							<code>
+								<p class="terminal">
+									sudo apt install git -y
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+				<li>
+					On Mac in the working folder initiate git repository:
+					<ul>
+						<li>
+							<code>
+								<p class="terminal-mac">
+									cd /Users/akraig/work/js/HtT<br>
+									git init
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+				<li>
+					On the Server: 
+					<ul>
+						<li>
+							<code>
+								<p class="terminal">
+									mkdir website.git && cd website.git<br>
+									git init --bare
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Reconfigure nginx to this repository:
+					<ul>
+						<li>
+							<code>
+								<p class="terminal">
+									sudo vim /etc/nginx/sites-available/mx_conf
+								</p>
+							</code>
+						</li>
+						<li>
+							change
+						</li>
+						<li>
+							<code>
+								<p>
+									root /var/www/html;
+								</p>
+							</code>
+						</li>
+						<li>
+							to
+						</li>
+						<li>
+							<code>
+								<p>
+									root /home/max/site;
+								</p>
+							</code>
+						</li>
+						<li>
+							Restart server:
+						</li>
+						<li>
+							<code>
+								<p class="terminal">
+									sudo systemctl restart nginx<br>
+									sudo systemctl status nginx
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Create hook:
+					<ul>
+						<li>
+							<code>
+								<p class="terminal">
+									sudo vim ~/website.git/hooks/post-recieve
+								</p>
+							</code>
+						</li>
+						<li>
+							<code>
+								<p>
+									#!/bin/sh<br>
+									GIT_WORK_TREE=/home/max/site git checkout -f
+								</p>
+							</code>
+						</li>
+						<li>
+							<code>
+								<p class="terminal">
+									sudo chmod +x ~/website.git/hooks/post-recieve
+								</p>
+							</code>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Now we can push:
+					<ul>
+						<li>
+							<code>
+								<p class="terminal-mac">
+									git remote add web ssh://max@192.168.56.2:2222/home/max/website.git<br>
+									git push web +master:refs/heads/master
+								</p>
+							</code>
+						</li>
+						<li>
+							Commit and push and site will automagically update.
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</section>
+</main>
+<footer class="footer">
+	<container>
+		
+	</container>
+</footer>
+</body> 
+</html>
